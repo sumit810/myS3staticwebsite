@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e0f7fa;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            color: #00796b;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease-in-out;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"], input[type="date"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #80deea;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00796b;
+            border: none;
+            color: #ffffff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        table, th, td {
+            border: 1px solid #80deea;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #004d40;
+            color: #ffffff;
+        }
+        img.profile-img {
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            border: 3px solid #00796b;
+            margin-bottom: 20px;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://sumit-gamer-810-terraform.s3.eu-west-1.amazonaws.com/profile.jpg" alt="Profile Image" class="profile-img">
+    <div class="container">
+        <h1>Trading Account</h1>
+        <form id="tradeForm">
+            <label for="tradeDate">Trade Date:</label>
+            <input type="date" id="tradeDate" name="tradeDate" required>
+
+            <label for="tradeType">Trade Type:</label>
+            <select id="tradeType" name="tradeType" required>
+                <option value="">Select</option>
+                <option value="Profit">Profit</option>
+                <option value="Loss">Loss</option>
+            </select>
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" step="0.01" required>
+
+            <button type="button" onclick="addTrade()">Add Trade</button>
+        </form>
+
+        <table id="tradesTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function addTrade() {
+            const tradeDate = document.getElementById('tradeDate').value;
+            const tradeType = document.getElementById('tradeType').value;
+            const amount = parseFloat(document.getElementById('amount').value).toFixed(2);
+
+            if (!tradeDate || !tradeType || isNaN(amount)) {
+                alert('Please fill out all fields correctly.');
+                return;
+            }
+
+            const tableBody = document.querySelector('#tradesTable tbody');
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>${tradeDate}</td>
+                <td>${tradeType}</td>
+                <td>${amount}</td>
+            `;
+
+            tableBody.appendChild(newRow);
+
+            // Clear the form
+            document.getElementById('tradeForm').reset();
+        }
+    </script>
+</body>
+</html>
